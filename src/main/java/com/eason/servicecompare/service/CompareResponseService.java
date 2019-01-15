@@ -1,9 +1,9 @@
 package com.eason.servicecompare.service;
 
-import com.eason.servicecompare.model.CompareByUrlRequest;
+import com.eason.servicecompare.model.CompareRequest;
 import com.eason.servicecompare.model.ComparedResult;
+import com.eason.servicecompare.model.RequestModel;
 import org.dom4j.Attribute;
-import org.dom4j.Document;
 import org.dom4j.Element;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,17 +16,25 @@ public class CompareResponseService {
     @Autowired
     private FetchResponseService fetchResponseService;
 
-    public ComparedResult compare(CompareByUrlRequest compareByUrlRequest) {
-        Document originDoc = fetchResponseService.fetchResponseByUrl(compareByUrlRequest.getOriginUrl());
-        Document comparedDoc = fetchResponseService.fetchResponseByUrl(compareByUrlRequest.getComparedUrl());
+    public ComparedResult compare(CompareRequest compareByUrlRequest) {
+//        Document originDoc = fetchResponseService.fetchResponseByUrl(compareByUrlRequest.getOriginRequest().getUrl());
+//        Document comparedDoc = fetchResponseService.fetchResponseByUrl(compareByUrlRequest.getComparedRequest().getUrl());
+//
+//
+//        Element originRoot = originDoc.getRootElement();
+//        Element comparedRoot = comparedDoc.getRootElement();
+//
+//        filterSameNodes(originRoot, comparedRoot);
+//
+//        return new ComparedResult(originDoc.asXML(), comparedDoc.asXML());
 
+        String originResponse = fetchResponseService.fetchResponseByRequest(compareByUrlRequest.getOriginRequest());
+        String comparedResponse = fetchResponseService.fetchResponseByRequest(compareByUrlRequest.getComparedRequest());
+        return new ComparedResult(originResponse, comparedResponse);
+    }
 
-        Element originRoot = originDoc.getRootElement();
-        Element comparedRoot = comparedDoc.getRootElement();
-
-        filterSameNodes(originRoot, comparedRoot);
-
-        return new ComparedResult(originDoc.asXML(), comparedDoc.asXML());
+    public String test(RequestModel requestModel) {
+        return fetchResponseService.fetchResponseByRequest(requestModel);
     }
 
 

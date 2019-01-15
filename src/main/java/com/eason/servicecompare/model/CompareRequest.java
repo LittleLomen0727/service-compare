@@ -3,17 +3,14 @@ package com.eason.servicecompare.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.URL;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CompareByUrlRequest {
+public class CompareRequest {
 
-    @URL
-    private String originUrl;
+    private RequestModel originRequest;
 
-    @URL
-    private String comparedUrl;
+    private RequestModel comparedRequest;
 
 }
